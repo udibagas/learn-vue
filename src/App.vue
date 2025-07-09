@@ -1,34 +1,73 @@
 <template>
-  <div class="container mt-5 d-flex gap-4">
+  <div class="container">
     <ProductForm @create="createProduct" />
-    <ProductList :products="products" apa="Apa ni?" />
+    <br />
+    <ProductTable :products="products" @buy="buyProduct" />
   </div>
 </template>
 
-<script>
-import ProductList from "./components/ProductList.vue";
+<script setup>
 import ProductForm from "./components/ProductForm.vue";
+import ProductTable from "./components/ProductTable.vue";
+import { ref } from "vue";
 
-export default {
-  data() {
-    return {
-      products: [
-        { id: 1, name: "Baju", price: 100_000 },
-        { id: 2, name: "Kaos", price: 80_000 },
-      ],
-    };
-  },
+const products = ref([
+  { id: 1, name: "Baju", price: 100_000, stock: 10, status: "available" },
+  { id: 2, name: "Kaos", price: 80_000, stock: 5, status: "unavailable" },
+  { id: 3, name: "Celana", price: 120_000, stock: 8, status: "available" },
+]);
 
-  // local registration
-  components: {
-    ProductList,
-    ProductForm,
-  },
+function createProduct(product) {
+  products.value.push(product);
+}
 
-  methods: {
-    createProduct(product) {
-      this.products.push(product);
-    },
-  },
-};
+function buyProduct(id) {
+  const indexProduct = products.value.findIndex((p) => p.id === id);
+
+  if (indexProduct === -1) {
+    console.error("Product not found");
+    return;
+  }
+
+  products.value[indexProduct].stock--;
+}
+
+// export default {
+//   // data() {
+//   //   return {
+//   //     products: [
+//   //       { id: 1, name: "Baju", price: 100_000 },
+//   //       { id: 2, name: "Kaos", price: 80_000 },
+//   //     ],
+//   //   };
+//   // },
+
+//   setup() {
+//     const products = ref([
+//       { id: 1, name: "Baju", price: 100_000 },
+//       { id: 2, name: "Kaos", price: 80_000 },
+//     ]);
+
+//     function createProduct(product) {
+//       products.value.push(product);
+//     }
+
+//     return {
+//       products,
+//       createProduct,
+//     };
+//   },
+
+//   // local registration
+//   components: {
+//     ProductTable,
+//     ProductForm,
+//   },
+
+//   // methods: {
+//   //   createProduct(product) {
+//   //     this.products.push(product);
+//   //   },
+//   // },
+// };
 </script>

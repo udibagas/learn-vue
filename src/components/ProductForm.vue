@@ -24,30 +24,58 @@
     </div>
 
     <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" id="status" v-model="newProduct.status">
+        <option value="available">Available</option>
+        <option value="unavailable">Unavailable</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Product Stock</label>
+      <input
+        type="number"
+        class="form-control"
+        id="stock"
+        placeholder="Product Stock"
+        v-model="newProduct.stock"
+        :disabled="newProduct.status === 'unavailable'"
+      />
+    </div>
+
+    <div class="mb-3">
       <Button type="submit" variant="success">Add Product</Button>
     </div>
   </form>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      newProduct: { id: "", name: "", price: 0 },
-    };
-  },
+<script setup>
+import { defineEmits, reactive, watch } from "vue";
 
-  methods: {
-    createProduct() {
-      const product = {
-        id: Date.now(),
-        name: this.newProduct.name,
-        price: this.newProduct.price,
-      };
+const newProduct = reactive({
+  id: "",
+  name: "",
+  price: 0,
+  stock: 0,
+  status: "available",
+});
 
-      this.$emit("create", product);
-      this.newProduct = { id: "", name: "", price: 0 };
-    },
-  },
-};
+watch(newProduct, (newValue) => {
+  if (newValue.status === "unavailable") {
+    newValue.stock = 0; // Reset stock when status is unavailable
+  }
+});
+
+const emit = defineEmits(["create"]);
+
+function createProduct() {
+  const { name, price, stock } = newProduct;
+  const product = { id: Date.now(), name, price, stock };
+
+  emit("create", product);
+  newProduct.id = "";
+  newProduct.name = "";
+  newProduct.price = 0;
+  newProduct.stock = 0;
+}
 </script>
