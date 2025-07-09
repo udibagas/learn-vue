@@ -24,8 +24,9 @@
         <span
           v-for="r in new Array(Math.ceil(product.rating.rate))"
           class="me-1 text-sm"
-          >⭐️</span
         >
+          ⭐️
+        </span>
       </div>
       <div class="card-body d-grid gap-2">
         <a href="#" class="btn btn-outline-info">Buy</a>
