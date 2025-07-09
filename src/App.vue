@@ -1,75 +1,46 @@
 <template>
-  <div class="container my-4">
-    <!-- <ProductForm @create="createProduct" />
-    <br />
-    <ProductTable :products="products" @buy="buyProduct" /> -->
-    <Products />
-  </div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TOKOPAKEDI</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/">Home</RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" :to="{ name: 'about' }">
+              About
+            </RouterLink>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <main class="container mt-3">
+    <RouterView />
+  </main>
 </template>
 
 <script setup>
-import ProductForm from "./components/ProductForm.vue";
-import ProductTable from "./components/ProductTable.vue";
-import Products from "./components/Products.vue";
-import { ref } from "vue";
-
-const products = ref([
-  { id: 1, name: "Baju", price: 100_000, stock: 10, status: "available" },
-  { id: 2, name: "Kaos", price: 80_000, stock: 5, status: "unavailable" },
-  { id: 3, name: "Celana", price: 120_000, stock: 8, status: "available" },
-]);
-
-function createProduct(product) {
-  products.value.push(product);
-}
-
-function buyProduct(id) {
-  const indexProduct = products.value.findIndex((p) => p.id === id);
-
-  if (indexProduct === -1) {
-    console.error("Product not found");
-    return;
-  }
-
-  products.value[indexProduct].stock--;
-}
-
-// export default {
-//   // data() {
-//   //   return {
-//   //     products: [
-//   //       { id: 1, name: "Baju", price: 100_000 },
-//   //       { id: 2, name: "Kaos", price: 80_000 },
-//   //     ],
-//   //   };
-//   // },
-
-//   setup() {
-//     const products = ref([
-//       { id: 1, name: "Baju", price: 100_000 },
-//       { id: 2, name: "Kaos", price: 80_000 },
-//     ]);
-
-//     function createProduct(product) {
-//       products.value.push(product);
-//     }
-
-//     return {
-//       products,
-//       createProduct,
-//     };
-//   },
-
-//   // local registration
-//   components: {
-//     ProductTable,
-//     ProductForm,
-//   },
-
-//   // methods: {
-//   //   createProduct(product) {
-//   //     this.products.push(product);
-//   //   },
-//   // },
-// };
+import { RouterLink, RouterView } from "vue-router";
 </script>

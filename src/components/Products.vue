@@ -29,7 +29,18 @@
         </span>
       </div>
       <div class="card-body d-grid gap-2">
-        <a href="#" class="btn btn-outline-info">Buy</a>
+        <!-- <router-link
+          class="btn btn-outline-info"
+          :to="{
+            name: 'product-detail',
+            params: { id: product.id },
+          }"
+        >
+          Show Detail
+        </router-link> -->
+        <button class="btn btn-outline-info" @click="showDetail(product.id)">
+          Show Detail
+        </button>
       </div>
     </div>
   </div>
@@ -37,6 +48,12 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+const router = useRouter();
+
+function showDetail(productId) {
+  router.push(`/products/${productId}`);
+}
 
 const products = ref([
   // {
