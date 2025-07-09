@@ -1,14 +1,16 @@
 <template>
-  <div class="container">
-    <ProductForm @create="createProduct" />
+  <div class="container my-4">
+    <!-- <ProductForm @create="createProduct" />
     <br />
-    <ProductTable :products="products" @buy="buyProduct" />
+    <ProductTable :products="products" @buy="buyProduct" /> -->
+    <Products />
   </div>
 </template>
 
 <script setup>
 import ProductForm from "./components/ProductForm.vue";
 import ProductTable from "./components/ProductTable.vue";
+import Products from "./components/Products.vue";
 import { ref } from "vue";
 
 const products = ref([
