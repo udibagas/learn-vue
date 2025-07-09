@@ -1,5 +1,4 @@
 <template>
-  <h1>Products</h1>
   <div class="d-flex flex-wrap gap-5">
     <div
       class="card shadow"

@@ -27,7 +27,9 @@
           ⭐️
         </span>
 
-        <p class="my-4">{{ product.description }}</p>
+        <p class="my-4" style="white-space: pre-line">
+          {{ product.description }}
+        </p>
 
         <a href="#" class="btn btn-outline-info">Buy</a>
       </div>
