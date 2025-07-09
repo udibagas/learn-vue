@@ -23,6 +23,9 @@
               About
             </RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
+          </li>
         </ul>
         <form class="d-flex" role="search">
           <input
